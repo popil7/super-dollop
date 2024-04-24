@@ -14,12 +14,15 @@ ISP - IP 172.15.10.1/30 VMNET2, 172.15.20.1/30 VMNET3, 172.15.30.1/30 VMNET4
 CLI - IP 172.15.30.2/30 172.15.30.1 VMNET4
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/63f3892c-63fe-4824-9fb1-637c1864f6b9)
+
 серверы DNS на всех машинах, Поисковой домен на CLI и BR-SRV
 2.frr
 dnf install frr
 HQ-R
 nano /etc/frr/daemons(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/960a38ba-949d-4fb1-a44f-1ba4adfa1320)
+
 systemctl enable frr
 systemctl start frr
 vtysh
@@ -34,30 +37,41 @@ HQ-R# copy running-config startup-config
 HQ-R# ex
 systemctl restart frr
 nano /etc/sysctl.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/4be5f3de-84f5-4911-ae08-cfd802f6ea00)
+
 sysctl -p
 на BR-R аналогично
 
 NAT
 HQ-R и BR-R
 nano /etc/nftables/hq-r.nft(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/57a6538a-2f24-4a48-b107-426d0be90dd3)
+
 nano /etc/sysconfig/nftables.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ffe6a6e3-aab1-4cc8-b175-ff9c340276e0)
+
 systemctl restart nftables
 systemctl enable nftables
 ISP
 nano /etc/sysctl.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/acecc3f9-c5b1-4515-9522-0a0dac742e1c)
+
 sysctl -p
 gre tunnel между hq-r и br-r
 HQ-R
 nano /etc/gre.up(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/fb54649a-796f-4335-ab2a-89480471f633)
+
 chmod +x /etc/gre.up
 nano /etc/crontab(скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/78bd85ab-f427-42a4-8bf6-e7220d2f3aed)
+
 sh /etc/gre.up
 vtysh
 HQ-R# conf t
@@ -75,6 +89,7 @@ HQ-R
 nano /etc/gre.up(скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/b15efe0d-b1c6-46bc-b894-1386135ebcee)
+
 chmod +x /etc/gre.up
 sh /etc/gre.up
 vtysh
@@ -89,17 +104,23 @@ systemctl restart frr
 
 CLI
 nano /etc/gre.up(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/fb2da575-86cc-4880-8f97-88047c89b6a4)
+
 chmod +x /etc/gre.up
 nano /etc/crontab(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ca130a54-e4fc-4d38-add7-112e249f96e8)
+
 sh /etc/gre.up
 
 3.dhcp
 HQ-R
 dnf install dhcp
 nano /etc/dhcp/dhcpd.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/15ea8130-ea7b-4fd9-b2ce-8ea5a9f64cab)
+
 systemctl restart dhcpd
 systemctl enable dhcpd
 4. учётные записи
@@ -122,10 +143,12 @@ iperf3 -c 172.15.10.1
 (скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/01aa0bb5-3a54-4e08-b9ac-ac21f55878d4)
+
 6.backup
 HQ-R
 mkdir /var/{backup,backup-script}
 nano /var/backup-script/backup.sh(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/8f09ad02-2aea-43a9-a948-5f518b6fc5a5)
 
 chmod +x /var/backup-script/backup.sh
@@ -141,11 +164,13 @@ chmod +x /var/backup-script/backup.sh
 HQ-SRV
 apt install ssh
 nano /etc/ssh/sshd_config(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/da0d7c0b-41c5-45c7-a86b-c0e6468e34f9)
 
 systemctl restart sshd
 HQ-R
 nano /etc/nftables/hq-r.nft(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/1d061394-8be6-4ec3-be6a-1b709e4e35f1)
 
 systemctl restart nftables
@@ -153,7 +178,9 @@ systemctl restart nftables
 8.Настройте контроль доступа до HQ-SRV по SSH со всех устройств, кроме CLI.
 nano /etc/hosts.deny(скрин)
 HQ-SRV
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/849c78d9-0ab4-4501-8404-c87a6ce5be0d)
+
 systemctl restart sshd
 
 Модуль 2
@@ -164,6 +191,7 @@ apt install bind9
 nano /etc/bind/named.conf.local(скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/a0c0b247-1c78-44c1-9a45-8637d4cef8cc)
+
 cd /etc/bind
 mkdir zones
 cp db.local zones/db.hq.work                cp db.local zones/db.branch.work
@@ -174,7 +202,9 @@ nano zones/db.100.168.192(скрин)        nano zones/db.200.168.192(скри�
 ![image](https://github.com/popil7/super-dollop/assets/167972537/94300f68-5ab3-4e0f-841d-9ad5f3be96bc)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/641a34b1-434b-48b3-a410-92eaa391b750)
+
 nano /etc/resolv.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/a7e23d37-d2d6-4d12-a88d-ec90319bb126)
 
 systemctl restart bind9
@@ -189,12 +219,17 @@ HQ-R
 nano /etc/chrony.conf(скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/dcda345c-8b78-437e-99d1-a00d5fdf08f1)
+
 systemctl restart chronyd
 chronyc clients
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/453f2de7-ebde-4b8c-a30e-187021c101e9)
+
 На клиентах
 nano /etc/chrony.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/2e0ee69a-e67d-4a39-9871-1f183cdcb8eb)
+
 systemctl restart chronyd
 chronyc makestep
 chronyc sources -v
@@ -203,23 +238,32 @@ chronyc sources -v
 3.Domen
 HQ-SRV
 nano /etc/resolv.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/d05a2340-6a8a-4f6c-95ef-87840fef7413)
+
 nano /etc/hosts(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/e18a896f-d41f-4c13-9212-dbd198cab912)
+
 apt install samba winbind libpam-winbind libnss-winbind libpam-krb5 krb5-config krb5-user krb5-kdc
 systemctl stop winbind smbd nmbd krb5-kdc
 systemctl mask winbind smbd nmbd krb5-kdc
 rm /etc/samba/smb.conf
 samba-tool domain provision --use-rfc2307 –-interactive(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/df5b9b27-a746-46e9-ac76-a5d5ab31e7f1)
 
 Password: P@ssw0rd
 systemctl unmask samba-ad-dc
 systemctl enable samba-ad-dc
 nano /etc/bind/named.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/35e63bee-cc32-4397-9d9a-7561d02290d6)
+
 nano /var/lib/samba/bind-dns/named.conf
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/c86f4b09-ce37-4cfc-8611-079857d91cba)
+
 systemctl restart bind9
 cp -b /var/lib/samba/private/krb5.conf /etc/krb5.conf
 systemctl start samba-ad-dc
@@ -227,30 +271,46 @@ reboot
 CLI
 apt install fly-admin-ad-client
 nano /etc/resolv.conf(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/2405e06b-f7a0-4939-8015-582b1a806759)
+
 fly-admin-ad-client(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/36697e0a-ca45-4ca7-a0ad-6a248f5b66c6)
+
 BR-SRV
 так же как CLI
 fly-admin-ad-client(этого нету, смотри скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/edb2c62e-58b6-4653-a74c-ba3c1f0d367e)
+
 ДРУГОЙ ВАРИАНТ НАСТРОЙКИ DNS и DOMEN ЧЕРЕЗ FREEIPA
 HQ-SRV
 apt install astra-freeipa-server
 nano /etc/hosts(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/a5b2c7bc-7f12-40f0-887b-604e5075fdaf)
+
 astra-freeipa-server -o --ssl
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/9769b9bc-d53e-4bac-a5cc-3d578c0b0148)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/6394bdcc-e315-4744-a3ac-35c54b4c52d0)
+
 branch аналогично
 CLI
 apt install fly-admin-freeipa-client
 fly-admin-freeipa-clien
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/b43a01e4-c9ae-4adf-a530-c6f6a2beecdf)
+
 BR-SRV
 nano /usr/lib/python3.8/site-packages/ipalib/constants.py(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ab86539f-228b-4b7e-b080-09061824d454)
+
 В NAME_REGEX добавили \-
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ea883940-eef7-4e8c-97bb-f9a7233d9293)
 
 4.NFS
@@ -270,19 +330,25 @@ usermod -u 1111 admin, usermod -u 1110 network_admin, usermod -u 1100 branch_adm
 groupmod -g 1111admin,groupmod -g 1110 network_admin,groupmod -g 1100 branch_admin
 (такие же id на других машинах в соответствии с пользователями)
 nano /etc/exports(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/299fee8f-a4b4-4f6f-8f10-ada333bab8cb)
+
 exportfs -a
 HQ-R
 mount 192.168.100.2:/var/nfs/Admin_Files/ /mnt/
 mount 192.168.100.2:/var/nfs/Network/ /mnt/
 nano /etc/crontab(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/2de97291-dbe7-4ff9-8d21-e4d347b2e24b)
+
 На других машинах также в соответствии с пользователями которых создали
 CLI
 apt install nfs-client
 mount 192.168.100.2:/var/nfs/Admin_Files/ /mnt/
 nano /etc/crontab(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/88ed0c0e-a687-4a69-8125-0f3fa2d954b6)
+
 На других машинах также в соответствии с пользователями которых создали
 
 6.Docker
@@ -290,17 +356,28 @@ HQ-SRV
 apt install docker-compose
 docker pull mediawiki
 nano wiki.yml(скрин)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/28953c3a-5faf-4ef6-9274-cda0e5a65668)
+
 docker-compose -f wiki.yml up
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/e558c813-fb16-4573-96d0-d500bea337ad)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/bf3502d4-3561-4b62-9269-813abdafaeda)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/8b32574a-7d3d-41bd-9655-ecef87cd6588)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/7607d1ed-454c-4f76-8710-33461dc41cfc)
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/aeeec0ca-163a-4387-836c-52a4c9be2078)
+
 cp Загрузки/LocalSettings.php ./
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/cb343e2a-5658-409c-9dbd-55725c53229d)
+
 (Раскомментировали)
 docker-compose -f wiki.yml up
+
 ![image](https://github.com/popil7/super-dollop/assets/167972537/5901f24d-d3c6-44c4-937f-c66d5a091430)
 
 
