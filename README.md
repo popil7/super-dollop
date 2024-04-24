@@ -1,5 +1,9 @@
+
 # DEMO2024-APRIL
 ## Модуль 1
+
+![image](https://github.com/popil7/super-dollop/assets/167972537/630c2b35-f22f-4a6e-b61b-40cde19d83f8)
+
 
 1. Выполните базовую настройку всех устройств:
    - a. Присвоить имена в соответствии с топологией
@@ -70,7 +74,8 @@ d. Пул адресов для сети офиса HQ - не более 64
 ### 1.1 Настройка NAT с помощью встроенного nftables.
 
 #### HQ-R и BR-R
-```
+```![Uploading image.png…]()
+
 nano /etc/nftables/isp.nft
 ----
 table inet my_nat {
