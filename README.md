@@ -437,7 +437,7 @@ nano /usr/lib/python3.8/site-packages/ipalib/constants.py(скрин)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ab86539f-228b-4b7e-b080-09061824d454)
 
-В NAME_REGEX добавили \-
+В NAME_REGEX добавили ![image](https://github.com/popil7/super-dollop/assets/167972537/358c1a93-63cc-4709-a451-9a5b0e406b89)
 
 ![image](https://github.com/popil7/super-dollop/assets/167972537/ea883940-eef7-4e8c-97bb-f9a7233d9293)
 
