@@ -615,7 +615,7 @@ d. Пул адресов для сети офиса HQ - не более 64
 ### 1.1 Настройка NAT с помощью встроенного nftables.
 
 #### HQ-R и BR-R
-```![Uploading image.png…]()
+```![image](https://github.com/popil7/super-dollop/assets/167972537/74536d1d-11b0-4dd6-9070-dc5823140439)
 
 nano /etc/nftables/isp.nft
 ----
@@ -1264,3 +1264,6 @@ nano /home/Admin/comp.yml
 Закрываем docker командой ctrl+c и запускаем снова
 Должна отобразиться заглавная страница
 ```
+
+![Uploading image.png…]()
+
