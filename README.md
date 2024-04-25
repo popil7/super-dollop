@@ -339,6 +339,9 @@ chronyc makestep
 
 chronyc sources -v
 
+Прописываем на всех машинах, кроме isp так как там не настраивался chrony
+
+timedatectl set-timezone Europe/Moscow
 
 3.Domen
 
