@@ -541,8 +541,6 @@ docker-compose -f wiki.yml up
 ![image](https://github.com/popil7/super-dollop/assets/167972537/5901f24d-d3c6-44c4-937f-c66d5a091430)
 
 
-![image](https://github.com/popil7/super-dollop/assets/167972537/584bc1f9-bfd3-4777-829b-81e54a294d78)
-
 
 
 # DEMO2024-APRIL
